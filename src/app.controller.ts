@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -14,4 +14,10 @@ export class AppController {
   newEndpoint() {
     return `Holandaaaaa`;
   }
+
+  @Get(':id')
+  recibirParams(@Param('id') id: string){
+    return id;
+  }
 }
+/**hasta clase 7 */
