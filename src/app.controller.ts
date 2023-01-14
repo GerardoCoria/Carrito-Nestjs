@@ -1,4 +1,5 @@
-import { Controller, Get, Param } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -10,9 +11,12 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('hola')
-  newEndpoint() {
-    return `Holandaaaaa`;
+  @Get('consulta')
+  consultaRuta(
+    @Query('data') data: string,
+    @Query('data2') data2: string
+  ) {
+    return `son ${data} y ${data2}`
   }
 
   @Get(':id')
@@ -20,4 +24,3 @@ export class AppController {
     return id;
   }
 }
-/**hasta clase 7 */
