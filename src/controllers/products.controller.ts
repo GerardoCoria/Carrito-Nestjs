@@ -1,40 +1,33 @@
-import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Put, Delete} from '@nestjs/common';
+import { ProductsService } from "../services/products.service";
 
 @Controller('products')
 export class ProductsController {
 
+  constructor(private productsService: ProductsService){}
+
   @Get()
   rutaPrincipal(){
-    return {
-      message: `ruta de productos`
-  }
+    return this.productsService.findAll()
   }
 
   @Get(':id')
   recibirParams(@Param('id') id: string){
-    return id;
+    return this.productsService.findOne(+id)
   }
 
   @Post()
   create(@Body() payload:any){
-    return {
-      message: 'dato creado',
-      data: payload
-    }
+    return this.productsService.create(payload)
   }
 
   @Put(':id')
-  update(@Param('id')id:any, @Body() payload:any){
-    return {
-      id: id,
-      data: payload
-    }
+  update(@Param('id') id:string, @Body() payload:any){
+    return this.productsService.update(+id, payload)
   }
 
   @Delete(':id')
-  borrar(@Param('id')id:any){
-    return{
-      message: `producto con id ${id} borrado`
-    }
+  borrar(@Param('id') id:string){
+    return this.productsService.remove(+id)
   }
 }
