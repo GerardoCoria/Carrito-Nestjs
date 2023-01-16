@@ -2,8 +2,8 @@ import { Controller, Get } from '@nestjs/common';
 
 @Controller('categories')
 export class CategoriesController {
-  @Get('categories')
+  @Get()
   categorias(){
-    return `categorias`;
+    return `ruta de categorias`;
   }
 }
