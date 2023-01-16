@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -17,10 +16,5 @@ export class AppController {
     @Query('data2') data2: string
   ) {
     return `son ${data} y ${data2}`
-  }
-
-  @Get(':id')
-  recibirParams(@Param('id') id: string){
-    return id;
   }
 }
