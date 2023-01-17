@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException} from '@nestjs/common';
+import { CreateProductDto, UpdateProductDto } from 'src/dtos/products.dto';
 import { Product } from '../entities/product.entity'
 
 @Injectable()
@@ -18,7 +19,7 @@ export class ProductsService {
     return item
   }
 
-  create(payload:any){
+  create(payload:CreateProductDto){
     if(!payload){
       throw new NotFoundException(`Error en los datos suministrados.`)
     }
@@ -31,7 +32,7 @@ export class ProductsService {
     return newProduct;
   }
 
-  update(id:number, payload:any){
+  update(id:number, payload:UpdateProductDto){
     const item = this.findOne(id)
     if(!item){
       throw new NotFoundException(`Producto con ID N° ${id} no existe.`)
