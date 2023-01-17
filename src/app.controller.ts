@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -6,15 +6,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
+  getHello(): object {
     return this.appService.getHello();
-  }
-
-  @Get('consulta')
-  consultaRuta(
-    @Query('data') data: string,
-    @Query('data2') data2: string
-  ) {
-    return `son ${data} y ${data2}`
   }
 }
