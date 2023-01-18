@@ -1,7 +1,10 @@
 import { Controller, Get, Param } from '@nestjs/common';
+import { ApiTags } from "@nestjs/swagger";
+
 import { ParseIntPipe } from 'src/common/parse-int.pipe';
 import { UsersService } from "../services/users.service";
 
+@ApiTags('Usuarios')
 @Controller('users')
 export class UsersController {
 

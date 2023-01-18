@@ -18,7 +18,9 @@ import { environments } from "./environments";
     validationSchema:Joi.object({
       PORT: Joi.number().required(),
       DATABASE: Joi.string().required(),
-      PASSWORD: Joi.string().required()
+      PASSWORD: Joi.string().required(),
+      SWAGGER_USER: Joi.string().required(),
+      SWAGGER_PASSWORD: Joi.string().required()
     })
   }), UsersModule, ProductsModule, CartModule, CheckoutModule, DatabaseModule],
   controllers: [AppController],
