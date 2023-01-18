@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException} from '@nestjs/common';
+import { Inject, Injectable, NotFoundException} from '@nestjs/common';
 import { CreateProductDto, UpdateProductDto } from '../dtos/products.dto';
 import { Product } from '../entities/product.entity'
 
@@ -6,9 +6,13 @@ import { Product } from '../entities/product.entity'
 export class ProductsService {
   private counterId = 0
   private products: Product[] = [];
+  constructor(@Inject('dolar')private dolar:any){}
 
   findAll(){
-    return this.products
+    return {
+      products: this.products,
+      dolar: this.dolar
+    }
   }
 
   findOne(id:number){

@@ -6,30 +6,30 @@ import { CreateProductDto, UpdateProductDto } from '../dtos/products.dto'
 @Controller('products')
 export class ProductsController {
 
-  constructor(private productsService: ProductsService){}
+  constructor(private services: ProductsService){}
 
   @Get()
   rutaPrincipal(){
-    return this.productsService.findAll()
+    return this.services.findAll()
   }
 
   @Get(':id')
   recibirParams(@Param('id', ParseIntPipe) id: number){
-    return this.productsService.findOne(id)
+    return this.services.findOne(id)
   }
 
   @Post()
   create(@Body() payload:CreateProductDto){
-    return this.productsService.create(payload)
+    return this.services.create(payload)
   }
 
   @Put(':id')
   update(@Param('id', ParseIntPipe) id:number, @Body() payload:UpdateProductDto){
-    return this.productsService.update(id, payload)
+    return this.services.update(id, payload)
   }
 
   @Delete(':id')
   borrar(@Param('id', ParseIntPipe) id:number){
-    return this.productsService.remove(id)
+    return this.services.remove(id)
   }
 }
