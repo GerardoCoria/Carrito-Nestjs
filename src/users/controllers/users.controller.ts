@@ -1,7 +1,8 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { ApiTags } from "@nestjs/swagger";
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiOperation, ApiTags } from "@nestjs/swagger";
 
 import { ParseIntPipe } from 'src/common/parse-int.pipe';
+import { User } from '../entities/user.entity';
 import { UsersService } from "../services/users.service";
 
 @ApiTags('Usuarios')
@@ -10,18 +11,16 @@ export class UsersController {
 
   constructor(private services:UsersService){}
 
-  @Get()
-  ruta(){
-    return this.services.ruta()
-  }
-
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id:number){
     return this.services.findOne(id)
   }
 
-  @Get('/cart/:id')
-  getCartById(@Param('id', ParseIntPipe) id:number){
-    return this.services.getById(id)
+  @Post()
+  @ApiOperation({summary:'Registra un nuevo usuario'})
+  create(@Body() payload:User){
+    return this.services.create(payload)
   }
+
+
 }

@@ -22,3 +22,15 @@ export class CartService {
     return this.cart
   }
 }
+// getById(id:number){
+//   const userFound = this.findOne(id)
+//   return {
+//     date: new Date(),
+//     user: userFound,
+//     products: this.products.findAll()
+//   }
+// }
+// @Get('/cart/:id')
+// getCartById(@Param('id', ParseIntPipe) id:number){
+//   return this.services.getById(id)
+// }
