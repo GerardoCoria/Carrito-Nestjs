@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Delete} from '@nestjs/common';
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 
 import { ParseIntPipe } from 'src/common/parse-int.pipe';
@@ -17,10 +17,20 @@ export class UsersController {
   }
 
   @Post()
-  @ApiOperation({summary:'Registra un nuevo usuario'})
+  @ApiOperation({summary:'Agrega un usuario nuevo'})
   create(@Body() payload:User){
     return this.services.create(payload)
   }
 
+  @Put(':id')
+  @ApiOperation({summary:'Modifica un usuario en uno o más atributos.'})
+  update(@Param('id', ParseIntPipe) id:number, @Body() payload:User){
+    return this.services.update(id, payload)
+  }
 
+  @Delete(':id')
+  @ApiOperation({summary:'Elimina el usuario seleccionado por su N° de ID'})
+  borrar(@Param('id', ParseIntPipe) id:number){
+    return this.services.remove(id)
+  }
 }

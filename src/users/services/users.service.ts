@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException} from '@nestjs/common';
 
 import { User } from '../entities/user.entity';
-import { Order } from "../../cart/entities/order.entity";
 import { ProductsService } from "../../products/services/products.service";
 
 @Injectable()
@@ -33,13 +32,24 @@ export class UsersService {
   update(id:number, payload:User){
     const item = this.findOne(id)
     if(!item){
-      throw new NotFoundException(`Producto con ID N° ${id} no existe.`)
+      throw new NotFoundException(`Usuario con ID N° ${id} no existe.`)
     }
-    const index = this.products.findIndex((item)=>item.id===id)
-    this.products[index] = {
+    const index = this.users.findIndex((item)=>item.id===id)
+    this.users[index] = {
       ...item,
       ...payload
     };
-    return this.products[index]
+    return this.users[index]
   }
+
+  remove(id:number){
+    const index = this.users.findIndex((item)=>item.id===id)
+    if(index === -1){
+      throw new NotFoundException(`Usuario con ID N° ${id} no existe.`)
+    }
+    this.users.splice(index, 1)
+    return true
+  }
+
+
 }
