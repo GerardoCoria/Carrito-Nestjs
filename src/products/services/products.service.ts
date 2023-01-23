@@ -1,4 +1,5 @@
 import { Inject, Injectable, NotFoundException} from '@nestjs/common';
+import { Db } from "mongodb";
 
 import { CreateProductDto, UpdateProductDto } from '../dtos/products.dto';
 import { Product } from '../entities/product.entity'
@@ -7,13 +8,14 @@ import { Product } from '../entities/product.entity'
 export class ProductsService {
   private counterId = 0
   private products: Product[] = [];
-  constructor(@Inject('dolar')private dolar:any){}
+  constructor(
+    @Inject('dolar')private dolar:any,
+    @Inject('MONGO') private database:Db,
+  ){}
 
   findAll(){
-    return {
-      products: this.products,
-      dolar: this.dolar
-    }
+    const taskCollection = this.database.collection('Productos');
+    return taskCollection.find().toArray();
   }
 
   findOne(id:number){

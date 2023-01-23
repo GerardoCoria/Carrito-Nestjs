@@ -10,10 +10,12 @@ import { CartModule } from './cart/cart.module';
 import { CheckoutModule } from './checkout/checkout.module';
 import { DatabaseModule } from './database/database.module';
 import { environments } from "./environments";
+import config from './config'
 
 @Module({
   imports: [ConfigModule.forRoot({
-    envFilePath: environments[process.env.NODE_ENV],
+    envFilePath: environments[process.env.NODE_ENV] || '.env',
+    load:[config],
     isGlobal: true,
     validationSchema:Joi.object({
       PORT: Joi.number().required(),
