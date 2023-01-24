@@ -19,8 +19,6 @@ import config from './config'
     isGlobal: true,
     validationSchema:Joi.object({
       PORT: Joi.number().required(),
-      DATABASE: Joi.string().required(),
-      PASSWORD: Joi.string().required(),
       SWAGGER_USER: Joi.string().required(),
       SWAGGER_PASSWORD: Joi.string().required()
     })

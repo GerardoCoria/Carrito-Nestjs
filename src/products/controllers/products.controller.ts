@@ -13,16 +13,16 @@ export class ProductsController {
 
   @Get()
   @ApiOperation({summary:'Retorna todos los productos.'})
-  rutaPrincipal(){
+  getAll(){
     return this.services.findAll()
   }
 
   @Get(':id')
   @ApiOperation({summary:'Devuelve un producto por su N° de ID'})
-  recibirParams(@Param('id', ParseIntPipe) id: number){
+  getById(@Param('id') id: string){
     return this.services.findOne(id)
   }
-
+/*
   @Post()
   @ApiOperation({summary:'Agrega un producto nuevo'})
   create(@Body() payload:CreateProductDto){
@@ -39,5 +39,5 @@ export class ProductsController {
   @ApiOperation({summary:'Elimina el producto seleccionado por su N° de ID'})
   borrar(@Param('id', ParseIntPipe) id:number){
     return this.services.remove(id)
-  }
+  }*/
 }
