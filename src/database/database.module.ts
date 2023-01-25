@@ -55,17 +55,3 @@ import config from "../config";
 })
 
 export class DatabaseModule {}
-
-
-/*
-mongodb://root:root@localhost:27017/%E2%80%9CauthSource=admin?authMechanism=DEFAULT&authSource=admin
-`${connection}://${user}:${password}@${host}:${port}/%E2%80%9CauthSource=admin?authMechanism=DEFAULT&authSource=admin`
-MONGO_INITDB_ROOT_USERNAME='root'
-MONGO_INITDB_ROOT_PASSWORD='root'
-MONGO_DB='App_Nest'
-MONGO_PORT=27017
-MONGO_HOST='localhost'
-MONGO_CONNECTION='mongodb'
-
-mongodb+srv://gcoria1989:gimeno666@cluster0.c5lzx.mongodb.net/test
-*/
