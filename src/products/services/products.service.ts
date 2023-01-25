@@ -4,7 +4,7 @@ import { InjectModel } from "@nestjs/mongoose";
 /* import { Db } from "mongodb"; */
 
 import { Product } from '../entities/product.entity'
-/* import { CreateProductDto, UpdateProductDto } from '../dtos/products.dto';*/
+import { CreateProductDto, UpdateProductDto } from '../dtos/products.dto';
 
 @Injectable()
 export class ProductsService {
@@ -30,41 +30,23 @@ export class ProductsService {
     }
     return item
   }
-  /*
 
   create(payload:CreateProductDto){
-    if(!payload){
-      throw new NotFoundException(`Error en los datos suministrados.`)
-    }
-    this.counterId = this.counterId + 1
-    const newProduct ={
-      id: this.counterId,
-      ...payload
-    };
-    this.products.push(newProduct);
-    return newProduct;
+    const newProduct = new this.productModel(payload);
+    return newProduct.save();
   }
 
-  update(id:number, payload:UpdateProductDto){
-    const item = this.findOne(id)
+  update(id:string, payload:UpdateProductDto){
+    const item = this.productModel
+      .findByIdAndUpdate(id, {$set: payload}, {new:true})
+      .exec();
     if(!item){
-      throw new NotFoundException(`Producto con ID N° ${id} no existe.`)
+      throw new NotFoundException(`Producto con ${id} no existe`)
     }
-    const index = this.products.findIndex((item)=>item.id===id)
-    this.products[index] = {
-      ...item,
-      ...payload
-    };
-    return this.products[index]
+    return item;
   }
 
-  remove(id:number){
-    const index = this.products.findIndex((item)=>item.id===id)
-    if(index === -1){
-      throw new NotFoundException(`Producto con ID N° ${id} no existe.`)
-    }
-    this.products.splice(index, 1)
-    return true
+  remove(id:string){
+    return this.productModel.findByIdAndDelete(id)
   }
-  */
 }

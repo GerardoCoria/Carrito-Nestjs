@@ -22,7 +22,6 @@ export class ProductsController {
   getById(@Param('id') id: string){
     return this.services.findOne(id)
   }
-/*
   @Post()
   @ApiOperation({summary:'Agrega un producto nuevo'})
   create(@Body() payload:CreateProductDto){
@@ -31,13 +30,13 @@ export class ProductsController {
 
   @Put(':id')
   @ApiOperation({summary:'Modifica un producto en uno o más atributos.'})
-  update(@Param('id', ParseIntPipe) id:number, @Body() payload:UpdateProductDto){
+  update(@Param('id') id:string, @Body() payload:UpdateProductDto){
     return this.services.update(id, payload)
   }
 
   @Delete(':id')
   @ApiOperation({summary:'Elimina el producto seleccionado por su N° de ID'})
-  borrar(@Param('id', ParseIntPipe) id:number){
+  borrar(@Param('id') id:string){
     return this.services.remove(id)
-  }*/
+  }
 }
