@@ -22,7 +22,9 @@ export class ProductsService {
         filters.price = {$gte: minPrice, $lte: maxPrice}
       }
       else if(nombre){
-        return this.productModel.find({name: { $regex : nombre, $options: '$i'}});
+        //return this.productModel.find({name: { $regex : nombre, $options: '$i'}});/* ver */
+        filters.name = {$text:{$search: /nombre/i, $caseSensitive: false}}/* ver */
+        //filters.name = { $regex : nombre, $options: 'i'} /* este funciona */
       }
       return this.productModel.find(filters).skip(offset).limit(limit).exec()
     }
