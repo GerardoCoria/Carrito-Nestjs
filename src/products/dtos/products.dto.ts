@@ -41,4 +41,7 @@ export class FilterProductsDto{
   @ValidateIf((params) => params.minPrice)
   @IsPositive()
   maxPrice:number;
+
+  @IsOptional()
+  nombre:string;
 }

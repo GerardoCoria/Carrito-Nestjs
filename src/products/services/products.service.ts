@@ -17,8 +17,12 @@ export class ProductsService {
       const filters:FilterQuery<Product> = {}
       const { limit, offset } = params;
       const { minPrice, maxPrice } = params;
+      const { nombre } = params;
       if(minPrice && maxPrice){
         filters.price = {$gte: minPrice, $lte: maxPrice}
+      }
+      else if(nombre){
+        return this.productModel.find({name: { $regex : nombre, $options: '$i'}});
       }
       return this.productModel.find(filters).skip(offset).limit(limit).exec()
     }
