@@ -1,9 +1,9 @@
-import { Controller, Get, Param, Post, Body, Put, Delete} from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Put, Delete, Query} from '@nestjs/common';
 import { ApiTags, ApiOperation } from "@nestjs/swagger";
 
 import { ProductsService } from "../services/products.service";
 //import { ParseIntPipe } from "../../common/parse-int.pipe"
-import { CreateProductDto, UpdateProductDto } from '../dtos/products.dto'
+import { CreateProductDto, UpdateProductDto, FilterProductsDto } from '../dtos/products.dto'
 import { MongoIdPipe } from "../../common/mongo-id/mongo-id.pipe";
 
 @ApiTags('Productos')
@@ -14,8 +14,8 @@ export class ProductsController {
 
   @Get()
   @ApiOperation({summary:'Retorna todos los productos.'})
-  getAll(){
-    return this.services.findAll()
+  getAll(@Query() params:FilterProductsDto){
+    return this.services.findAll(params)
   }
 
   @Get(':id')
