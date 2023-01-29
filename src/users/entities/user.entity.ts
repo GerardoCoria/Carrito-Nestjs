@@ -1,11 +1,16 @@
-export class User{
-  id: number;
-  name: string;
-  email: string;
-  password:string
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Document } from "mongoose";
+
+@Schema()
+export class User extends Document{
+  @Prop()
+  name:string;
+
+  @Prop()
+  email:string;
+
+  @Prop()
+  password:string;
 }
 
-
-export class UpdateUser{
-
-}
+export const UserSchema = SchemaFactory.createForClass(User);

@@ -17,22 +17,20 @@ export class ProductsService {
       const filters:FilterQuery<Product> = {}
       const { limit, offset } = params;
       const { minPrice, maxPrice } = params;
-      const { nombre } = params;
+      const { search } = params;
       if(minPrice && maxPrice){
         filters.price = {$gte: minPrice, $lte: maxPrice}
       }
-      else if(nombre){
-        //return this.productModel.find({name: { $regex : nombre, $options: '$i'}});/* ver */
-        filters.name = {$text:{$search: /nombre/i, $caseSensitive: false}}/* ver */
-        //filters.name = { $regex : nombre, $options: 'i'} /* este funciona */
+      else if(search){
+        filters.keys = { $regex : search, $options: 'i'}
       }
-      return this.productModel.find(filters).skip(offset).limit(limit).exec()
+      return this.productModel.find(filters, {keys:0}).populate('brand').skip(offset).limit(limit).exec()
     }
-    return this.productModel.find().exec();
+    return this.productModel.find().populate('brand').exec();
   }
 
   async findOne(id:string){
-    const item = await this.productModel.findById(id).exec()
+    const item = await this.productModel.findById(id).populate('brand').exec()
     if(!item){
       throw new NotFoundException(`Producto con ID N° ${id} no existe.`)
     }

@@ -1,36 +1,36 @@
 import { Body, Controller, Get, Param, Post, Put, Delete} from '@nestjs/common';
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { ApiTags } from '@nestjs/swagger';
 
-import { ParseIntPipe } from 'src/common/parse-int.pipe';
-import { User } from '../entities/user.entity';
-import { UsersService } from "../services/users.service";
+import { CreateUserDto, UpdateUserDto } from '../dto/user.dto';
+import { UsersService } from '../services/users.service';
 
 @ApiTags('Usuarios')
 @Controller('users')
 export class UsersController {
+  constructor(private usersService: UsersService) {}
 
-  constructor(private services:UsersService){}
+  @Get()
+  findAll() {
+    return this.usersService.findAll();
+  }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id:number){
-    return this.services.findOne(id)
+  get(@Param('id') id: string) {
+    return this.usersService.findOne(id);
   }
 
   @Post()
-  @ApiOperation({summary:'Agrega un usuario nuevo'})
-  create(@Body() payload:User){
-    return this.services.create(payload)
+  create(@Body() payload: CreateUserDto) {
+    return this.usersService.create(payload);
   }
 
   @Put(':id')
-  @ApiOperation({summary:'Modifica un usuario en uno o más atributos.'})
-  update(@Param('id', ParseIntPipe) id:number, @Body() payload:User){
-    return this.services.update(id, payload)
+  update(@Param('id') id: string, @Body() payload: UpdateUserDto) {
+    return this.usersService.update(id, payload);
   }
 
   @Delete(':id')
-  @ApiOperation({summary:'Elimina el usuario seleccionado por su N° de ID'})
-  borrar(@Param('id', ParseIntPipe) id:number){
-    return this.services.remove(id)
+  remove(@Param('id') id: string) {
+    return this.usersService.remove(id);
   }
 }

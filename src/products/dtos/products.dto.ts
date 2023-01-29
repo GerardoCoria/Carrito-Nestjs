@@ -1,5 +1,7 @@
-import { IsString, IsNumber, IsNotEmpty, IsPositive, IsOptional, Min, ValidateIf } from 'class-validator'
+import { IsString, IsNumber, IsNotEmpty, IsPositive, IsOptional, Min, ValidateIf, ValidateNested, IsMongoId } from 'class-validator'
 import { PartialType, ApiProperty} from "@nestjs/swagger";
+
+import { CreateCategoryDto } from "../dtos/categories.dto";
 
 export class CreateProductDto{
   @IsString({message: 'Debe ingresar texto'})
@@ -20,6 +22,18 @@ export class CreateProductDto{
   @IsNotEmpty({message: "No debe estar vacío"})
   @IsPositive({message: "El número debe ser mayor a cero."})
   readonly stock:number;
+
+  @IsNotEmpty()
+  @ValidateNested()
+  @ApiProperty({description: "Indica la categoría del producto"})
+  readonly category:CreateCategoryDto;
+
+  @IsMongoId()
+  readonly brand:string;
+
+  @IsString()
+  @IsOptional()
+  readonly keys:string;
 }
 
 export class UpdateProductDto extends PartialType(CreateProductDto){}
@@ -43,5 +57,5 @@ export class FilterProductsDto{
   maxPrice:number;
 
   @IsOptional()
-  nombre:string;
+  search:string;
 }
