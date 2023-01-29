@@ -1,49 +1,44 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
-import { NewItemDto, UpdateItemDto } from "../dtos/cart.dto";
 import { Cart } from "../entities/cart.entity";
+import { CreateCartDto, UpdateCartDto } from "../dtos/cart.dto";
 
 @Injectable()
 export class CartService {
-  private cart:Cart[] = []
+  constructor(
+    @InjectModel(Cart.name) private cartModel:Model<Cart>
+  ){}
 
-  findOne(id:number){
-    const item = this.cart.find((item:any)=>item.id ===id)
-    if(!item){
-      throw new NotFoundException(`Producto con ID N° ${id} no existe.`)
-    }
-    return item
+  findAll() {
+    return this.cartModel.find().exec();
   }
 
-  create(payload:NewItemDto){
-    if(!payload){
-      throw new NotFoundException(`Error en los datos suministrados.`)
+  async findOne(id: string) {
+    const cart = await this.cartModel.findOne({ _id: id }).exec();
+    if (!cart) {
+      throw new NotFoundException(`No se encontró el carrito #${id}.`);
     }
-    const newItem = {
-      ...payload
-    };
-    this.cart.push(newItem);
-    return newItem;
+    return cart;
   }
 
-  update(id:number, payload/* :UpdateItemDto */){
-    const item = this.findOne(id)
-    if(!item){
-      throw new NotFoundException(`Producto con ID N° ${id} no existe.`)
-    }
-    const index = this.cart.findIndex((item)=>item.id===id)
-    this.cart[index] = {
-      ...payload
-    };
-    return this.cart[index]
+  create(data: CreateCartDto) {
+    const newCart = new this.cartModel(data);
+    return newCart.save();
   }
 
-  remove(id:number){
-    const index = this.cart.findIndex((item)=>item.id===id)
-    if(index === -1){
-      throw new NotFoundException(`Producto con ID N° ${id} no existe.`)
+  async update(id: string, changes: UpdateCartDto) {
+    const cart = await this.cartModel
+      .findByIdAndUpdate(id, { $set: changes }, { new: true })
+      .exec();
+    if (!cart) {
+      throw new NotFoundException(`No se encontró la  marca #${id}.`);
     }
-    this.cart.splice(index, 1)
-    return true
+    return cart;
+  }
+
+  remove(id: string) {
+    return this.cartModel.findByIdAndDelete(id);
   }
 }

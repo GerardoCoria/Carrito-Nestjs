@@ -1,7 +1,7 @@
 import { PartialType, ApiProperty} from "@nestjs/swagger";
 import { IsString, IsNumber, IsNotEmpty, IsPositive } from 'class-validator'
 
-export class CartDto{
+export class CreateCartDto{
   @IsString({message: 'Debe ingresar texto'})
   @IsNotEmpty({message: "No debe estar vacío"})
   readonly name:string;
@@ -18,4 +18,4 @@ export class CartDto{
   readonly quantity:number;
 }
 
-export class UpdateCartDto extends PartialType(CartDto){}
+export class UpdateCartDto extends PartialType(CreateCartDto){}

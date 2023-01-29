@@ -1,7 +1,7 @@
 import { PartialType } from "@nestjs/swagger";
 import { IsString, IsNotEmpty } from 'class-validator'
 
-export class CustomerDto{
+export class CreateCustomerDto{
   @IsString({message: 'Debe ingresar texto'})
   @IsNotEmpty({message: "No debe estar vacío"})
   readonly name:string;
@@ -11,4 +11,4 @@ export class CustomerDto{
   readonly email:string;
 }
 
-export class UpdateCustomerDto extends PartialType(CustomerDto){}
+export class UpdateCustomerDto extends PartialType(CreateCustomerDto){}
