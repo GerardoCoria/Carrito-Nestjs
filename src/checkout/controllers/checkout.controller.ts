@@ -1,6 +1,7 @@
 import { Controller, Get,Param, Body, Post, Put, Delete } from '@nestjs/common';
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { ApiTags } from "@nestjs/swagger";
 
+import { CreateCheckoutDto, UpdateCheckoutDto } from '../dto/checkout.dto';
 import { CheckoutService } from "../services/checkout.service";
 
 @ApiTags('Checkout')
@@ -14,25 +15,21 @@ export class CheckoutController {
   }
 
   @Get(':id')
-  @ApiOperation({summary:'Muestra un producto del carrito por su N° de ID'})
   get(@Param('id') id: string) {
-    return this.cartService.findOne(id);
+    return this.checkoutService.findOne(id);
   }
 
   @Post()
-  @ApiOperation({summary:'Agrega un producto nuevo al carrito'})
-  create(@Body() payload: CreateCartDto) {
+  create(@Body() payload: CreateCheckoutDto) {
     return this.checkoutService.create(payload);
   }
 
   @Put(':id')
-  @ApiOperation({summary:'Modifica un producto del carrito en uno o más atributos.'})
-  update(@Param('id') id: string, @Body() payload: UpdateCartDto) {
+  update(@Param('id') id: string, @Body() payload: UpdateCheckoutDto) {
     return this.checkoutService.update(id, payload);
   }
 
   @Delete(':id')
-  @ApiOperation({summary:'Elimina el producto del carrito por su N° de ID'})
   remove(@Param('id') id: string) {
     return this.checkoutService.remove(id);
   }
