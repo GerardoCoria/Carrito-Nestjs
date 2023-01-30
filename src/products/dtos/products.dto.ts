@@ -1,7 +1,11 @@
-import { IsString, IsNumber, IsNotEmpty, IsPositive, IsOptional, Min, ValidateIf, ValidateNested, IsMongoId } from 'class-validator'
+import { IsString, IsNumber, IsNotEmpty, IsPositive, IsOptional, Min, ValidateIf, ValidateNested, IsMongoId, IsDate } from 'class-validator'
 import { PartialType, ApiProperty} from "@nestjs/swagger";
 
 import { CreateCategoryDto } from "../dtos/categories.dto";
+
+class Batch {
+  constructor(private batch: number | string){}
+}
 
 export class CreateProductDto{
   @IsString({message: 'Debe ingresar texto'})
@@ -30,6 +34,13 @@ export class CreateProductDto{
 
   @IsMongoId()
   readonly brand:string;
+
+  @IsNotEmpty()
+  @IsDate()
+  readonly expires:Date;
+
+  @IsNotEmpty()
+  readonly batch:Batch;
 
   @IsString()
   @IsOptional()
