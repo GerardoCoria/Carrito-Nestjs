@@ -1,8 +1,10 @@
-import { Controller, Get,Param, Post, Put, Delete, Body } from '@nestjs/common';
+import { Controller, Get,Param, Post, Put, Delete, Body, UseGuards } from '@nestjs/common';
 
+import { ApiKeyGuard } from "../../auth/guards/api-key.guard";;
 import { CreateCustomerDto, UpdateCustomerDto } from '../dto/customer.dto';
 import { CustomersService } from '../services/customers.service';
 
+@UseGuards(ApiKeyGuard)
 @Controller('customers')
 export class CustomersController {
   constructor(private customerService: CustomersService) {}
