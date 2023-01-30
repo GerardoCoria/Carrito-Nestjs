@@ -3,9 +3,6 @@ import { PartialType, ApiProperty} from "@nestjs/swagger";
 
 import { CreateCategoryDto } from "../dtos/categories.dto";
 
-class Batch {
-  constructor(private batch: number | string){}
-}
 
 export class CreateProductDto{
   @IsString({message: 'Debe ingresar texto'})
@@ -40,7 +37,7 @@ export class CreateProductDto{
   readonly expires:Date;
 
   @IsNotEmpty()
-  readonly batch:Batch;
+  readonly batch:string;
 
   @IsString()
   @IsOptional()

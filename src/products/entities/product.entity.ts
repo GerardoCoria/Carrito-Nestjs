@@ -3,10 +3,6 @@ import { Document, Types } from "mongoose";
 
 import { Brand } from "../entities/brand.entity";
 
-class Batch {
-  constructor(private batch: number | string){}
-}
-
 @Schema()
 export class Product extends Document{
   @Prop({required:true, type:String})
@@ -32,8 +28,8 @@ export class Product extends Document{
   @Prop({required:true, type:Date})
   expires:Date;
 
-  @Prop({required:true, type:Batch})
-  batch:Batch;
+  @Prop({required:true, type:String})
+  batch:string;
 
   @Prop({type:String})
   keys:string
