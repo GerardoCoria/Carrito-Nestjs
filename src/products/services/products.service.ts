@@ -24,7 +24,7 @@ export class ProductsService {
       else if(search){
         filters.keys = { $regex : search, $options: 'i'}
       }
-      return this.productModel.find(filters, {keys:0}).populate('brand').skip(offset).limit(limit).exec()
+      return this.productModel.find(filters, {keys:0, stock: 0}).populate('brand').skip(offset).limit(limit).exec()
     }
     return this.productModel.find().populate('brand').exec();
   }

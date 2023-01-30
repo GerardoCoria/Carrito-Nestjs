@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { CreateOrderDto, UpdateOrderDto } from '../dto/orders.dto';
+import { CreateOrderDto, UpdateOrderDto, AddProductsToOrderDto } from '../dto/orders.dto';
 import { Order } from '../entities/order.entity';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class OrdersService {
   }
 
   async findOne(id: string) {
-    const order = await this.orderModel.findOne({ _id: id }).populate('customer').populate('products').exec();
+    const order = await this.orderModel.findOne({ _id: id }).populate('customer').populate('products', {keys:0, stock:0}).exec();
     if (!order) {
       throw new NotFoundException(`No se encontró la orden #${id}.`);
     }
@@ -40,5 +40,17 @@ export class OrdersService {
 
   remove(id: string) {
     return this.orderModel.findByIdAndDelete(id);
+  }
+
+  async removeProduct(idOrder:string, idProduct:string){
+    const order = await this.orderModel.findById(idOrder);
+    order.products.pull(idProduct);
+    return order.save();
+  }
+
+  async addProducts(idOrder:string, products:string[]){
+    const order = await this.orderModel.findById(idOrder);
+    products.forEach((item)=> order.products.push(item));
+    return order.save()
   }
 }

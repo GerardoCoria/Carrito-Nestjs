@@ -10,6 +10,7 @@ import { CartModule } from './cart/cart.module';
 import { CheckoutModule } from './checkout/checkout.module';
 import { DatabaseModule } from './database/database.module';
 import { environments } from "./environments";
+import { AuthModule } from './auth/auth.module';
 import config from './config'
 
 @Module({
@@ -22,7 +23,7 @@ import config from './config'
       SWAGGER_USER: Joi.string().required(),
       SWAGGER_PASSWORD: Joi.string().required()
     })
-  }), UsersModule, ProductsModule, CartModule, CheckoutModule, DatabaseModule],
+  }), UsersModule, ProductsModule, CartModule, CheckoutModule, DatabaseModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
