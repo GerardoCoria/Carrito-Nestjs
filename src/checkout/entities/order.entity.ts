@@ -9,7 +9,7 @@ export class Order extends Document{
   @Prop()
   name:string
 
-  @Prop({type : Date})
+  @Prop({required:true, type:Date})
   date:Date;
 
   @Prop({type: Types.ObjectId, ref: Customer.name, required:true})

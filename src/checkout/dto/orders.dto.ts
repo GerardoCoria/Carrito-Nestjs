@@ -1,21 +1,24 @@
-import { PartialType, ApiProperty} from "@nestjs/swagger";
-import { IsString, IsNumber, IsNotEmpty, IsPositive } from 'class-validator'
+import { OmitType, PartialType } from "@nestjs/swagger";
+import { IsString, IsNotEmpty, IsDate, IsMongoId, IsArray } from 'class-validator'
 
 export class CreateOrderDto{
   @IsString({message: 'Debe ingresar texto'})
   @IsNotEmpty({message: "No debe estar vacío"})
   readonly name:string;
 
-  @IsNumber({allowNaN:false}, {message: "Debe ser un número"})
-  @IsNotEmpty({message: "No debe estar vacío"})
-  @IsPositive({message: "El número debe ser mayor a cero."})
-  @ApiProperty({description: 'El precio está expresado en pesos y en dólares (valor libre).'})
-  readonly price:number;
+  @IsNotEmpty()
+  @IsDate()
+  readonly date:Date;
 
-  @IsNumber({allowNaN:false}, {message: "Debe ser un número"})
-  @IsNotEmpty({message: "No debe estar vacío"})
-  @IsPositive({message: "El número debe ser mayor a cero."})
-  readonly quantity:number;
+  @IsNotEmpty()
+  @IsMongoId()
+  readonly customer: string;
+
+  @IsNotEmpty()
+  @IsArray()
+  readonly products:string[];
 }
 
-export class UpdateOrderDto extends PartialType(CreateOrderDto){}
+export class UpdateOrderDto extends PartialType(
+  OmitType(CreateOrderDto, ['products']),
+){}

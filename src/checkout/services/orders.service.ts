@@ -12,11 +12,11 @@ export class OrdersService {
   ){}
 
   findAll() {
-    return this.orderModel.find().exec();
+    return this.orderModel.find().populate('customer').populate('products').exec();
   }
 
   async findOne(id: string) {
-    const order = await this.orderModel.findOne({ _id: id }).exec();
+    const order = await this.orderModel.findOne({ _id: id }).populate('customer').populate('products').exec();
     if (!order) {
       throw new NotFoundException(`No se encontró la orden #${id}.`);
     }
