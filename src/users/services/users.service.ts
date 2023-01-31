@@ -31,6 +31,7 @@ export class UsersService {
     const hashPassword = await bcrypt.hash(newUser.password, 10);
     newUser.password = hashPassword;
     const userCreated = await newUser.save();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {password, ...rta} = userCreated.toJSON();
     return rta;
   }

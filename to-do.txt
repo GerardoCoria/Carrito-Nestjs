@@ -1,1 +1,2 @@
 Agregar cantidad a los items
+JwtModule.register(signOptions: expiresIn: CAMBIARLO POR REFRESH TOKEN (CADA VEZ QUE EL TOKEN SE VENZA, QUE GENERE OTRO)
