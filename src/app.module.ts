@@ -6,7 +6,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
-import { CartModule } from './cart/cart.module';
+import { OrdersModule } from './orders/orders.module';
 import { CheckoutModule } from './checkout/checkout.module';
 import { DatabaseModule } from './database/database.module';
 import { environments } from "./environments";
@@ -23,7 +23,7 @@ import config from './config'
       SWAGGER_USER: Joi.string().required(),
       SWAGGER_PASSWORD: Joi.string().required()
     })
-  }), UsersModule, ProductsModule, CartModule, CheckoutModule, DatabaseModule, AuthModule],
+  }), UsersModule, ProductsModule, OrdersModule, CheckoutModule, DatabaseModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
