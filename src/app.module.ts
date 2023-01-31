@@ -21,7 +21,8 @@ import config from './config'
     validationSchema:Joi.object({
       PORT: Joi.number().required(),
       SWAGGER_USER: Joi.string().required(),
-      SWAGGER_PASSWORD: Joi.string().required()
+      SWAGGER_PASSWORD: Joi.string().required(),
+      JWT_SECRET: Joi.string().required()
     })
   }), UsersModule, ProductsModule, OrdersModule, CheckoutModule, DatabaseModule, AuthModule],
   controllers: [AppController],
