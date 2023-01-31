@@ -1,14 +1,17 @@
 import { Controller, Get, Param, Post, Body, Put, Delete, Query, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation } from "@nestjs/swagger";
+import { AuthGuard } from "@nestjs/passport";
 
 import { ProductsService } from "../services/products.service";
 import { CreateProductDto, UpdateProductDto, FilterProductsDto } from '../dtos/products.dto'
 import { MongoIdPipe } from "../../common/mongo-id/mongo-id.pipe";
-import { ApiKeyGuard } from "../../auth/guards/api-key.guard";
+//import { ApiKeyGuard } from "../../auth/guards/api-key.guard";
+import { JwtAuthGuard } from "../../auth/guards/jwt-auth.guard";
 import { Public } from "../../auth/decorators/public.decorator";
 
 @ApiTags('Productos')
-@UseGuards(ApiKeyGuard)
+//@UseGuards(ApiKeyGuard)
+@UseGuards(AuthGuard('jwt'))
 @Controller('products')
 export class ProductsController {
 
