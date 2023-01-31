@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
@@ -23,6 +23,10 @@ export class UsersService {
   }
 
   async create(data: CreateUserDto) {
+    const searchUser = await this.findOne(data.email)
+    if(searchUser){
+      throw new HttpException('Usuario ya registrado', HttpStatus.FORBIDDEN)
+    }
     const newUser = new this.userModel(data);
     const hashPassword = await bcrypt.hash(newUser.password, 10);
     newUser.password = hashPassword;

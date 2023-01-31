@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateCustomerDto, UpdateCustomerDto } from '../dto/customer.dto';
@@ -16,14 +16,18 @@ export class CustomersService {
   }
 
   async findOne(id: string) {
-    const customer = await this.customerModel.findOne({ _id: id }).exec();
+    const customer = await this.customerModel.findOne({email: id }).exec();
     if (!customer) {
       throw new NotFoundException(`No se encontró el carrito #${id}.`);
     }
     return customer;
   }
 
-  create(data: CreateCustomerDto) {
+  async create(data: CreateCustomerDto) {
+    const searchCustomer = await this.findOne(data.email)
+    if(searchCustomer){
+      throw new HttpException('Cliente ya registrado', HttpStatus.FORBIDDEN)
+    }
     const newCustomer = new this.customerModel(data);
     return newCustomer.save();
   }

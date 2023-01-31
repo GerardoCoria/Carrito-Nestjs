@@ -1,8 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { CreateOrderDto, UpdateOrderDto, AddProductsToOrderDto } from '../dtos/orders.dto';
+import { CreateOrderDto, UpdateOrderDto } from '../dtos/orders.dto';
 import { Order } from '../entities/order.entity';
 
 @Injectable()
@@ -23,6 +23,12 @@ export class OrdersService {
     return order;
   }
 
+  async isInCart(orderId: string, productId:string){
+    const order = await this.findOne(orderId);
+    const product = order.products.find((item)=>item.id === productId);
+    return product
+  }
+
   create(data: CreateOrderDto) {
     const newOrder = new this.orderModel(data);
     return newOrder.save();
@@ -38,6 +44,16 @@ export class OrdersService {
     return order;
   }
 
+  async addProducts(idOrder:string, products:string[]){
+    const order = await this.orderModel.findById(idOrder);
+    const searchProduct = await this.isInCart(idOrder, products[0])
+    if(searchProduct){
+      throw new HttpException('Producto ya ingresado', HttpStatus.BAD_REQUEST)
+    }
+    products.forEach((item)=> order.products.push(item));
+    return order.save()
+  }
+
   remove(id: string) {
     return this.orderModel.findByIdAndDelete(id);
   }
@@ -46,11 +62,5 @@ export class OrdersService {
     const order = await this.orderModel.findById(idOrder);
     order.products.pull(idProduct);
     return order.save();
-  }
-
-  async addProducts(idOrder:string, products:string[]){
-    const order = await this.orderModel.findById(idOrder);
-    products.forEach((item)=> order.products.push(item));
-    return order.save()
   }
 }

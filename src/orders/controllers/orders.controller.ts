@@ -29,6 +29,11 @@ export class OrdersController {
     return this.orderService.update(id, payload);
   }
 
+  @Put(':id/items')
+  updateProducts(@Param('id') id: string, @Body() payload: AddProductsToOrderDto) {
+    return this.orderService.addProducts(id, payload.products);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.orderService.remove(id);
@@ -37,10 +42,5 @@ export class OrdersController {
   @Delete(':id/item/:itemId')
   removeProduct(@Param('id') id: string, @Param('itemId') itemId:string) {
     return this.orderService.removeProduct(id, itemId);
-  }
-
-  @Put(':id/items')
-  updateProducts(@Param('id') id: string, @Body() payload: AddProductsToOrderDto) {
-    return this.orderService.addProducts(id, payload.products);
   }
 }
