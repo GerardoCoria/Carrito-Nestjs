@@ -14,7 +14,7 @@ export class UsersService {
     return this.userModel.find().exec();
   }
 
-  async findOne(id: string) {
+  async findByEmail(id: string) {
     const user = await this.userModel.findOne({email: id}).exec();
     if (!user) {
       throw new NotFoundException(`No se encontró el usuario #${id}.`);
@@ -23,7 +23,7 @@ export class UsersService {
   }
 
   async create(data: CreateUserDto) {
-    const searchUser = await this.findOne(data.email)
+    const searchUser = await this.userModel.findOne({email: data.email}).exec()
     if(searchUser){
       throw new HttpException('Usuario ya registrado', HttpStatus.FORBIDDEN)
     }

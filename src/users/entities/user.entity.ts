@@ -9,7 +9,9 @@ export class User extends Document{
   @Prop()
   email:string;
 
-  @Prop({select:false})
+  @Prop(
+    //{select:false}
+    )
   password:string;
 }
 

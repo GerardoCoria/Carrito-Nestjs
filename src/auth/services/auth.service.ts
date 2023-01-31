@@ -8,10 +8,11 @@ export class AuthService {
   constructor(private userServices:UsersService){}
 
   async validateUser(email:string, password:string){
-    const user = await this.userServices.findOne(email)
+    const user = await this.userServices.findByEmail(email)
     const matchPassword = await bcrypt.compare(password, user.password);
     if(user && matchPassword){
-      return user;
+      const { password, ...rta} = user.toJSON();
+      return rta;
     }
     return null;
   }
