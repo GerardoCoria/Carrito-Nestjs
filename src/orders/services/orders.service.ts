@@ -8,7 +8,7 @@ import { Order } from '../entities/order.entity';
 @Injectable()
 export class OrdersService {
   constructor(
-    @InjectModel(Order.name) private orderModel:Model<Order>
+    @InjectModel(Order.name) private orderModel:Model<Order>,
   ){}
 
   findAll() {
@@ -22,6 +22,10 @@ export class OrdersService {
     }
     return order;
   }
+
+  async ordersByCustomer(customerId: number) {
+    return this.orderModel.find({customer: customerId})
+  };
 
   async isInCart(orderId: string, productId:string){
     const order = await this.findOne(orderId);

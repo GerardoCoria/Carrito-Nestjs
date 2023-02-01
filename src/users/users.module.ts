@@ -8,9 +8,11 @@ import { User, UserSchema } from './entities/user.entity';
 import { CustomersService } from './services/customers.service';
 import { UsersService } from "./services/users.service";
 import { ProfileController } from './controllers/profile.controller';
+import { OrdersModule } from "../orders/orders.module";
 
 @Module({
   imports: [
+    OrdersModule,
     MongooseModule.forFeature([
       {
         name: User.name,

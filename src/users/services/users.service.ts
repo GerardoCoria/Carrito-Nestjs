@@ -37,8 +37,9 @@ export class UsersService {
   }
 
   async update(id: string, changes: UpdateUserDto) {
+    const searchUser = await this.findByEmail(id);
     const user = await this.userModel
-      .findByIdAndUpdate(id, { $set: changes }, { new: true })
+      .findByIdAndUpdate(searchUser.id, { $set: changes }, { new: true })
       .exec();
     if (!user) {
       throw new NotFoundException(`No se encontró el usuario #${id}.`);
