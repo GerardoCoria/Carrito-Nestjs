@@ -3,7 +3,7 @@ import { Document, Types } from "mongoose";
 
 //import { Customer } from "src/users/entities/customer.entity";
 import { User } from "src/users/entities/user.entity";
-import { Product } from "../../products/entities/product.entity";
+import { Product} from "../../products/entities/product.entity";
 
 @Schema()
 export class Order extends Document{

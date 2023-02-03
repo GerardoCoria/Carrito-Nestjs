@@ -26,5 +26,5 @@ export class UpdateOrderDto extends PartialType(
 export class AddProductsToOrderDto{
   @IsNotEmpty()
   @IsArray()
-  readonly products:string[];
+  readonly products:string;
 }

@@ -1,4 +1,4 @@
-import { Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Req, UseGuards, Headers } from '@nestjs/common';
 import { Request } from "express";
 import { AuthGuard } from "@nestjs/passport";
 
@@ -19,4 +19,6 @@ export class AuthController {
     const user = req.user as User;
     return this.authService.generateJWT(user);
   }
+
+  
 }
