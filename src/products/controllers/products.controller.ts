@@ -25,6 +25,7 @@ export class ProductsController {
   }
 
   @Get(':id')
+  @Public()
   @ApiOperation({summary:'Devuelve un producto por su N° de ID'})
   getById(@Param('id', MongoIdPipe) id: string){
     return this.services.findOne(id)

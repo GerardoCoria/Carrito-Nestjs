@@ -1,0 +1,21 @@
+#### Obtener todos los productos
+GET http://localhost:3001/products
+
+#### Filtrar paginando
+GET http://localhost:3001/products?limit=3&offset=1
+
+#### Filtrar por precio
+GET http://localhost:3001/products?minPrice=400&maxPrice=600
+
+#### Obtener producto por su ID
+GET http://localhost:3001/products/63d00eecccb95f93936cda9f
+
+### Crear un producto
+POST http://localhost:3001/products
+Content-Type: application/json
+Authorization:
+
+{
+
+}
+

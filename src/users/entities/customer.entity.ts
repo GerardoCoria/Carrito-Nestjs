@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
 import { Document, Types } from "mongoose";
+
 import { Skills } from "../dto/customer.dto";
 
 @Schema()

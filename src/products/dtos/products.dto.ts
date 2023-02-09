@@ -25,7 +25,8 @@ export class CreateProductDto{
   readonly stock:number;
 
   @IsNotEmpty()
-  @ValidateNested()
+  //@ValidateNested()
+  @IsMongoId()
   @ApiProperty({description: "Indica la categoría del producto"})
   readonly category:CreateCategoryDto;
 

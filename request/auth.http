@@ -1,0 +1,14 @@
+# @name usuarioLogueado
+POST http://localhost:3001/auth/login
+Content-Type: application/json
+
+{
+  "email":"ragnar@mail.com",
+  "password": "tengononi2023"
+}
+###
+
+
+GET http://localhost:3001/profile/my-orders/63da9a7c39422aa5d7cb8a4e
+Authorization: Bearer {{usuarioLogueado.response.body.access_token}}
+

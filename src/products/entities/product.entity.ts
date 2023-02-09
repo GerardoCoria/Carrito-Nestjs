@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory, raw } from "@nestjs/mongoose";
 import { Document, Types } from "mongoose";
 
 import { Brand } from "../entities/brand.entity";
+import { Category } from "../entities/category.entity";
 
 @Schema()
 export class Product extends Document{
@@ -17,10 +18,12 @@ export class Product extends Document{
   @Prop({required:true, type:Number})
   stock:number;
 
-  @Prop(raw({
+  /* @Prop(raw({
     name: { type : String }
   }))
-  category : Record<string, any>;
+  category : Record<string, any>; */
+  @Prop({ type: Types.ObjectId, ref: Category.name})
+  category : Category | Types.ObjectId;
 
   @Prop({type: Types.ObjectId, ref: Brand.name})
   brand : Brand | Types.ObjectId;
@@ -33,14 +36,7 @@ export class Product extends Document{
 
   @Prop({type:String})
   keys:string
+
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
-
-@Schema()
-export class ProductCart extends Product{
-  @Prop({required:true, type:Number})
-  quantity:number;
-}
-
-export const ProductCartSchema = SchemaFactory.createForClass(ProductCart)

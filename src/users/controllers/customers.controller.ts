@@ -4,7 +4,7 @@ import { ApiKeyGuard } from "../../auth/guards/api-key.guard";;
 import { CreateCustomerDto, UpdateCustomerDto } from '../dto/customer.dto';
 import { CustomersService } from '../services/customers.service';
 
-@UseGuards(ApiKeyGuard)
+//@UseGuards(ApiKeyGuard)
 @Controller('customers')
 export class CustomersController {
   constructor(private customerService: CustomersService) {}

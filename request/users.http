@@ -1,0 +1,7 @@
+# @name usuarioLogueado
+GET http://localhost:3001/profile/my-orders/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJzdWIiOiI2M2Q4NDA2YjY0OWI4NmQ5YWU3ZDM0YzAiLCJpYXQiOjE2NzU5NDY3MzEsImV4cCI6MTY3NTk1MzkzMX0.4yRHE2pgPPaMKYvqOvI3_0oL1AXuA1mLeDu4G5crc6M
+###
+
+GET http://localhost:3001/profile/my-orders/63da9a7c39422aa5d7cb8a4e
+Authorization: Bearer {{usuarioLogueado.response.body.access_token}}

@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Get, Req } from '@nestjs/common';
+import { Controller, UseGuards, Get, Req, Param } from '@nestjs/common';
 import { Request } from "express";
 import { ApiTags } from '@nestjs/swagger';
 
@@ -21,4 +21,19 @@ export class ProfileController {
     const user = req.user as PayloadToken;
     return this.orderService.ordersByCustomer(user.sub);
   }
+
+  @Roles(Role.CUSTOMER)
+  @Get('my-orders/:id')
+  getOneOrder(@Req() req:Request, @Param('id') id: string) {
+    const user = req.user as PayloadToken;
+    return this.orderService.oneOrderByCustomer(user.sub, id);
+  }
+
+  @Roles(Role.CUSTOMER)
+  @Get('my-orders/:id/:item')
+  getItemFromOrder(@Req() req:Request, @Param('id') id: string, @Param('item') item: string) {
+    const user = req.user as PayloadToken;
+    return this.orderService.oneItemFromOrder(user.sub, id, item)
+  }
+
 }

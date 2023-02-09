@@ -1,5 +1,5 @@
 import { OmitType, PartialType } from "@nestjs/swagger";
-import { IsString, IsNotEmpty, IsDate, IsMongoId, IsArray } from 'class-validator'
+import { IsString, IsNotEmpty, IsDate, IsMongoId, IsArray, IsNumber } from 'class-validator'
 
 export class CreateOrderDto{
   @IsString({message: 'Debe ingresar texto'})
@@ -27,4 +27,8 @@ export class AddProductsToOrderDto{
   @IsNotEmpty()
   @IsArray()
   readonly products:string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  readonly quantity:number;
 }
