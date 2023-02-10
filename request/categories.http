@@ -1,0 +1,16 @@
+### Leer todas las categorías
+GET http://localhost:3001/categories
+
+### Crear una categoría
+POST http://localhost:3001/categories
+Content-Type: application/json
+
+{
+  "name": "Gaseosas"
+}
+
+### Editar una categoría
+PUT http://localhost:3001/categories
+
+### Borrar una categoría
+DELETE http://localhost:3001/categories

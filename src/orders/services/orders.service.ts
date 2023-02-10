@@ -18,11 +18,14 @@ export class OrdersService {
   }
 
   async ordersByCustomer(customerId: number) {
-    return this.orderModel.find({customer: customerId}).populate('products').exec()
+    return this.orderModel.find({customer: customerId})
+      .populate('products')
+      .exec()
   };
 
   async oneOrderByCustomer(user:number, id: string){
     const orders = await this.ordersByCustomer(user)
+    //const orders = this.orderModel.findOne({customer: user}).populate('products').exec()
     const order = orders.find((i)=>i._id == id)
     return order;
   }
@@ -30,17 +33,16 @@ export class OrdersService {
   async oneItemFromOrder(user:number, id:string, idProduct:string){
     const order = await this.oneOrderByCustomer(user, id)
     const product = order.products.find((i)=> i._id == idProduct)
-    //const product = order.products.find((i)=> i.item._id == idProduct)
     return product;
   }
 
-  //async findOne(id: string) {
-  //  const order = await this.orderModel.findOne({ _id: id }).populate('customer').populate('products', {keys:0, stock:0}).exec();
-  //  if (!order) {
-  //    throw new NotFoundException(`No se encontró la orden #${id}.`);
-  //  }
-  //  return order;
-  //};
+  async findOne(id: string) {
+    const order = await this.orderModel.findOne({ _id: id }).populate('customer').populate('products', {keys:0, stock:0}).exec();
+    if (!order) {
+      throw new NotFoundException(`No se encontró la orden #${id}.`);
+    }
+    return order;
+  };
 
   /* async isInCart(orderId: string, productId:string){
     const order = await this.orderModel.findOne({_id: orderId}).exec();
@@ -63,20 +65,15 @@ export class OrdersService {
     return order;
   }
 
-  async addProducts(idOrder:string, product:string, qty:number, auth:string){
-    console.log('👉 product ▶',product );
-    console.log('👉 qty ▶',qty );
+  async addProducts(idOrder:string, product:string, auth:string){
     const user:number = await this.authService.gettingUser(auth)
     const order:any = await this.orderModel.findById(idOrder).populate('products').exec();
     if(order.customer !== user){
       throw new ForbiddenException('No tiene los permisos para realizar esta acción.')
     }
-    console.log('👉 order ▶', order.products );
     const isInCart = await order.products.find((i)=>i._id == product[0])
-    console.log('👉 isin ▶', isInCart);
     if(isInCart){
       throw new HttpException('Producto ya ingresado', HttpStatus.BAD_REQUEST)
-      //isInCart.stock = 6;
     }
     order.products.push(product);
     return order.save()

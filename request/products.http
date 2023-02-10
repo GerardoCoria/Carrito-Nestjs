@@ -1,21 +1,39 @@
 #### Obtener todos los productos
-GET http://localhost:3001/products
+GET {{hostname}}/products
 
 #### Filtrar paginando
-GET http://localhost:3001/products?limit=3&offset=1
+GET {{hostname}}/products?limit=3&offset=1
 
 #### Filtrar por precio
-GET http://localhost:3001/products?minPrice=400&maxPrice=600
+GET {{hostname}}/products?minPrice=400&maxPrice=600
 
 #### Obtener producto por su ID
-GET http://localhost:3001/products/63d00eecccb95f93936cda9f
+GET {{hostname}}/products/63d00eecccb95f93936cda9f
 
 ### Crear un producto
-POST http://localhost:3001/products
+POST {{hostname}}/products
 Content-Type: application/json
-Authorization:
+Authorization: {{token}}
 
+{
+  "category": {
+    "name":"63da5f04c5382b564fe0a153"},
+  "name": "Gaseosa lima limón",
+  "description": "Gaseosa sabor lima limón, 1.5 litros",
+  "price": 380,
+  "stock":987,
+  "brand": "63d68a42fa4e16c263bb4727",
+  "expires": "2023-09-09",
+  "batch": "ABC123"
+}
+
+### Modificar producto
+PUT {{hostname}}/products/63d3ce128b1797f8ea55923b
 {
 
 }
+
+### Borrar producto
+DELETE {{hostname}}1/products/63d7bee1b549e7ded9873292
+
 

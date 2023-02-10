@@ -1,0 +1,16 @@
+### Leer todas las marcas
+GET http://localhost:3001/brands
+
+### Crear una marca
+POST http://localhost:3001/brands
+Content-Type: application/json
+
+{
+  "name": "Coca Cola"
+}
+
+### Editar una marca
+PUT http://localhost:3001/brands
+
+### Eliminar una marca
+DELETE http://localhost:3001/brands

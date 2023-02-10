@@ -6,13 +6,6 @@ import { Customer } from "src/users/entities/customer.entity";
 import { User } from "src/users/entities/user.entity";
 import { Product } from "../../products/entities/product.entity";
 
-export class Items{
-  @IsNotEmpty()
-  item:Product;
-  @IsNotEmpty()
-  quantity:number
-}
-
 @Schema()
 export class Order extends Document{
   @Prop()
@@ -31,8 +24,9 @@ export class Order extends Document{
     type: [{ type: Types.ObjectId,
     ref: Product.name }]
   })
-  products: Types.Array<Product>;
+  products:Types.Array<Product>;
 
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
+

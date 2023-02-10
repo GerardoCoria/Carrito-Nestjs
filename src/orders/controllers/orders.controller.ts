@@ -49,7 +49,7 @@ export class OrdersController {
   @Put(':id/items')
   @ApiOperation({summary: "Toma el ID de la orden de compra, busca es orden y la modifica, agregándole productos."})
   updateProducts(@Param('id') id: string, @Body() payload: AddProductsToOrderDto, @Headers('Authorization') auth: string) {
-    return this.orderService.addProducts(id, payload.products, payload.quantity, auth);
+    return this.orderService.addProducts(id, payload.products, auth);
   }
 
   @Delete(':id')

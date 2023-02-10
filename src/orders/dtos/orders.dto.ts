@@ -27,8 +27,4 @@ export class AddProductsToOrderDto{
   @IsNotEmpty()
   @IsArray()
   readonly products:string;
-
-  @IsNotEmpty()
-  @IsNumber()
-  readonly quantity:number;
 }

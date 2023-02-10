@@ -1,0 +1,36 @@
+### Obtener órdenes
+GET {{hostname}}/orders/
+
+### Nueva orden
+POST {{hostname}}/orders/
+Content-Type: application/json
+
+{
+  "name":"Compra N° 3",
+  "date":"2022-02-02",
+  "customer":"63d8406b649b86d9ae7d34c0",
+  "products":[
+    "63d3ce128b1797f8ea55923b"
+  ]
+}
+
+// PERFIL DE CADA USUARIO
+### Leer perfil
+GET {{hostname}}/profile/my-orders/
+Authorization: Bearer {{token}}
+
+### Leer un solo carrito del perfil
+GET {{hostname}}/profile/my-orders/63da9a7c39422aa5d7cb8a4e
+Authorization: Bearer {{token}}
+
+### Modificar orden
+PUT {{hostname}}/orders/63da9a7c39422aa5d7cb8a4e/items
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "products":[
+      "63d00e84ccb95f93936cda9e"
+    ]
+}
+### Eliminar orden

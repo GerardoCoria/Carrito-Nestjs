@@ -1,0 +1,12 @@
+{
+  "rest-client.environmentVariables": {
+    "$shared":{
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJzdWIiOiI2M2Q4NDA2YjY0OWI4NmQ5YWU3ZDM0YzAiLCJpYXQiOjE2NzYwNjM4NjQsImV4cCI6MTY3NjA3MTA2NH0.zp2IHTpgjEj7Uo0OndJPYYmhgNXDMlbmge44zn6ufBM",
+    },
+    "dev": {
+      "hostname": "http://localhost:3001",
+    },
+    "production": {
+    }
+  }
+}
